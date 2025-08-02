@@ -1,41 +1,38 @@
-// Step 1: Define the async function
+// Define the async function to fetch and display user data
 async function fetchUserData() {
-    // Step 2: Define the API URL
+    // API endpoint URL
     const apiUrl = 'https://jsonplaceholder.typicode.com/users';
 
-    // Step 3: Select the data container element
+    // Select the container where user data will be displayed
     const dataContainer = document.getElementById('api-data');
 
     try {
-        // Step 4a: Fetch data from the API
+        // Fetch data from the API
         const response = await fetch(apiUrl);
-
-        // Step 4b: Convert response to JSON
         const users = await response.json();
 
-        // Step 5: Clear the "Loading..." message
+        // Clear the "Loading user data..." message
         dataContainer.innerHTML = '';
 
-        // Step 6a: Create a <ul> element
+        // Create a <ul> to hold the list of user names
         const userList = document.createElement('ul');
 
-        // Step 6b: Loop through users and create <li> elements
+        // Loop through each user and create <li> elements
         users.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.textContent = user.name;
-            userList.appendChild(listItem);
+            const li = document.createElement('li');
+            li.textContent = user.name;
+            userList.appendChild(li);
         });
 
-        // Step 6c: Append the <ul> to the container
+        // Append the list to the data container
         dataContainer.appendChild(userList);
-
     } catch (error) {
-        // Step 7: Handle errors and update UI
+        // Handle errors by clearing and showing failure message
         dataContainer.innerHTML = '';
         dataContainer.textContent = 'Failed to load user data.';
         console.error('Error fetching user data:', error);
     }
 }
 
-// Step 8: Run fetchUserData when the DOM is fully loaded
+// Invoke the fetchUserData function when the page loads
 document.addEventListener('DOMContentLoaded', fetchUserData);
